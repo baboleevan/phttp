@@ -1,5 +1,5 @@
 <?php
-$client = stream_socket_client("tcp://localhost:1337", $errno, $errorMessage);
+$client = stream_socket_client("tcp://127.0.0.1:1337", $errno, $errorMessage);
 if ($client === false) {
     throw new UnexpectedValueException("Failed to connect: $errno - $errorMessage");
 }
@@ -33,7 +33,12 @@ fwrite($client, $message);
 /*
  * response
  */
-echo stream_get_contents($client);
+while (true) {
+    if (!($response = stream_get_contents($client, 4))) {
+        break;
+    }
+    echo $response . '|';
+}
 
 /*
  * bye bye
