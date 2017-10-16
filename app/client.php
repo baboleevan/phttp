@@ -33,11 +33,15 @@ fwrite($client, $message);
 /*
  * response
  */
+$messageLenth = strlen($message);
+$totalLenth = 0;
 while (true) {
-    if (!($response = stream_get_contents($client, 4))) {
+    $response = stream_get_contents($client, 1);
+    echo $response;
+    $totalLenth += strlen($response);
+    if ($messageLenth <= $totalLenth) {
         break;
     }
-    echo $response . '|';
 }
 
 /*
