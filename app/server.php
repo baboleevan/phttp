@@ -11,7 +11,9 @@ while (true) {
     if ($client) {
         $clientSentData= fread($client, 1024);
 
-        $responseBody = 'HTTP/1.0 200 OK' . PHP_EOL . 'Content-Type: text/html' . PHP_EOL . PHP_EOL;
+        $responseBody = 'HTTP/1.0 200 OK' . PHP_EOL;
+        $responseBody .= 'Content-Type: text/html' . PHP_EOL;
+        $responseBody .= PHP_EOL;
         $responseBody .= 'you sent :' . PHP_EOL . $clientSentData . PHP_EOL;
 
         fwrite($client, $responseBody, strlen($responseBody));
