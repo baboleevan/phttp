@@ -1,4 +1,12 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
+
+//todo 지울 것 s
+$req = new Request();
+echo ($req instanceof Request);
+exit;
+//todo 지울 것 e
+
 $server = stream_socket_server("tcp://127.0.0.1:1337", $errno, $errorMessage);
 
 if ($server === false) {
