@@ -15,7 +15,8 @@ while (true) {
     if ($client) {
         $clientSentData = fread($client, 1024);
 
-        $response = (new Request($clientSentData))->getResponse();
+        $resourcePath = (new Request($clientSentData))->getResourcePath();
+        $response = (new Response())->getResponse($resourcePath);
 
         fwrite($client, $response, strlen($response));
         fclose($client);
