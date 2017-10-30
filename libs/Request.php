@@ -10,11 +10,6 @@ class Request
         $this->requestMessage = $requestMessage;
     }
 
-    public function getRequestMessage()
-    {
-        return $this->requestMessage;
-    }
-
     public function getResponse()
     {
         $filename = PROJECT_ROOT . '/public/index.html';
