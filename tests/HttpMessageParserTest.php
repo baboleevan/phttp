@@ -11,4 +11,9 @@ use PHPUnit\Framework\TestCase;
 class HttpMessageParserTest extends TestCase
 {
 
+    public function testReturnValue()
+    {
+        $parser = new HttpMessageParser('');
+        $result = $parser->getResult();
+    }
 }
