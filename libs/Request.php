@@ -3,6 +3,7 @@
 class Request
 {
     private $requestMessage;
+    private $resourcePath;
 
     public function __construct(string $requestMessage)
     {
@@ -12,6 +13,12 @@ class Request
 
     public function getResourcePath()
     {
-        return '/index.html';
+        $this->parseMessage();
+        return $this->resourcePath;
+    }
+
+    private function parseMessage()
+    {
+        $this->resourcePath = '/index.html';
     }
 }
