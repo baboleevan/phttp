@@ -14,6 +14,13 @@ class HttpMessageParser
 
     public function getResult()
     {
-        return [];
+        return [
+            'start_line' => '',
+            'method' => '',
+            'uri' => '',
+            'version' => '',
+            'headers' => '',
+            'body' => '',
+        ];
     }
 }
