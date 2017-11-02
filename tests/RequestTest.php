@@ -6,7 +6,7 @@ class RequestTest extends TestCase
 {
     public function testGetResourcePath(): void
     {
-        $request = new Request([]);
+        $request = new Request('');
         $this->assertEquals('/index.html', $request->getResourcePath());
     }
 }
