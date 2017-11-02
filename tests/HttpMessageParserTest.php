@@ -15,5 +15,6 @@ class HttpMessageParserTest extends TestCase
     {
         $parser = new HttpMessageParser('');
         $result = $parser->getResult();
+        $this->assertEquals(true, is_array($result));
     }
 }
