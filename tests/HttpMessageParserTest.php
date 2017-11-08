@@ -30,6 +30,7 @@ class HttpMessageParserTest extends TestCase
         return [
             [''],
             ['haha'],
+            ['하나 둘 셋'],
         ];
     }
 
