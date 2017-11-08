@@ -11,6 +11,7 @@ class HttpMessageParser
         'headers' => '',
         'body' => '',
     ];
+    private $supportMethods = ['GET', 'HEAD', 'POST',];
 
     public function __construct(string $message)
     {
@@ -37,6 +38,25 @@ class HttpMessageParser
         $startLineSplit = preg_split('/\s/', $startLine);
 
         if (empty($startLineSplit) || count($startLineSplit) !== 3) {
+            $this->throwInvalidMessageFormat();
+        }
+
+        $method = $startLineSplit[0];
+        $uri = $startLineSplit[1];
+        $version = $startLineSplit[2];
+
+        //check Method
+        if (empty($method) || !in_array($method, $this->supportMethods)) {
+            $this->throwInvalidMessageFormat();
+        }
+
+        //check URI
+        if (empty($uri) || strpos($uri, '/') !== 0) {
+            $this->throwInvalidMessageFormat();
+        }
+
+        //check version
+        if (empty($version) || !preg_match('/HTTP\/\d+.\d+/', $version)) {
             $this->throwInvalidMessageFormat();
         }
     }
