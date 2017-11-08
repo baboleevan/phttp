@@ -25,12 +25,19 @@ class HttpMessageParserTest extends TestCase
         }
     }
 
+    public function badMessages()
+    {
+        return [
+            [''],
+        ];
+    }
+
     /**
+     * @dataProvider badMessages
      * @expectedException Exception
      */
-    public function testInvalidMessageCausesException()
+    public function testInvalidMessageCausesException($badMsg)
     {
-        $badMsg = '';
         new HttpMessageParser($badMsg);
     }
 }
