@@ -29,7 +29,7 @@ class HttpMessageParser
 
         //시작줄은 있어야 한다
         if (empty($messageSplit) || empty($messageSplit[0])) {
-            throw new Exception('Invalid message format.');
+            $this->throwInvalidMessageFormat();
         }
 
         //시작줄을 whitespace로 나누기
@@ -37,12 +37,17 @@ class HttpMessageParser
         $startLineSplit = preg_split('/\s/', $startLine);
 
         if (empty($startLineSplit) || count($startLineSplit) !== 3) {
-            throw new Exception('Invalid message format.');
+            $this->throwInvalidMessageFormat();
         }
     }
 
     public function getResult(): array
     {
         return $this->result;
+    }
+
+    private function throwInvalidMessageFormat(): void
+    {
+        throw new Exception('Invalid message format.');
     }
 }
