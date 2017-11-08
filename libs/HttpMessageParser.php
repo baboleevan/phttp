@@ -3,24 +3,30 @@
 class HttpMessageParser
 {
     private $message = '';
+    private $result = [
+        'start_line' => '',
+        'method' => '',
+        'uri' => '',
+        'version' => '',
+        'headers' => '',
+        'body' => '',
+    ];
 
-    /**
-     * HttpMessageParser constructor.
-     */
     public function __construct(string $message)
     {
         $this->message = $message;
+        $this->parse();
+    }
+
+    private function parse()
+    {
+        if ($this->message == '') {
+            throw new Exception('Invalid message format.');
+        }
     }
 
     public function getResult(): array
     {
-        return [
-            'start_line' => '',
-            'method' => '',
-            'uri' => '',
-            'version' => '',
-            'headers' => '',
-            'body' => '',
-        ];
+        return $this->result;
     }
 }
