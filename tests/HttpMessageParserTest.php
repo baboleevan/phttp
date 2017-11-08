@@ -7,7 +7,8 @@ class HttpMessageParserTest extends TestCase
 
     public function testReturnValue()
     {
-        $parser = new HttpMessageParser('');
+        $goodMsg = 'GET / HTTP/1.1';
+        $parser = new HttpMessageParser($goodMsg);
         $result = $parser->getResult();
         $this->assertEquals(true, is_array($result));
 
@@ -22,5 +23,12 @@ class HttpMessageParserTest extends TestCase
         foreach ($requiredFields as $field) {
             $this->assertArrayHasKey($field, $result, 'key "' . $field . '" does not exist');
         }
+    }
+
+    public function testInvalidMessageCausesException()
+    {
+        $this->expectException(Exception::class);
+        $badMsg = '';
+        new HttpMessageParser($badMsg);
     }
 }
