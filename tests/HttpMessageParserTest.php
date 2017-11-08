@@ -25,9 +25,11 @@ class HttpMessageParserTest extends TestCase
         }
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testInvalidMessageCausesException()
     {
-        $this->expectException(Exception::class);
         $badMsg = '';
         new HttpMessageParser($badMsg);
     }
