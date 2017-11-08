@@ -35,7 +35,6 @@ class HttpMessageParserTest extends TestCase
             ['HEAD 둘 셋'],
             ['HEAD / 셋'],
             ['HEAD /index 셋'],
-            ['HEAD /index HTTP/1.1'],
         ];
     }
 
