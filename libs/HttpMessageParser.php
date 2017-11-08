@@ -12,7 +12,7 @@ class HttpMessageParser
         $this->message = $message;
     }
 
-    public function getResult()
+    public function getResult(): array
     {
         return [
             'start_line' => '',
