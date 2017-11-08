@@ -18,7 +18,7 @@ class HttpMessageParser
         $this->parse();
     }
 
-    private function parse()
+    private function parse(): void
     {
         //메시지를 \r\n 혹은 \n으로 나누기
         $messageSplit = preg_split('/(\r\n|\n)/', $this->message);
@@ -41,13 +41,13 @@ class HttpMessageParser
         }
     }
 
-    public function getResult(): array
-    {
-        return $this->result;
-    }
-
     private function throwInvalidMessageFormat(): void
     {
         throw new Exception('Invalid message format.');
+    }
+
+    public function getResult(): array
+    {
+        return $this->result;
     }
 }
