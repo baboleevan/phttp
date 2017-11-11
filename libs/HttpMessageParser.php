@@ -3,6 +3,7 @@
 class HttpMessageParser
 {
     private $message = '';
+    private $messageLines = [];
     private $result = [
         'start_line' => '',
         'method' => '',
@@ -21,29 +22,23 @@ class HttpMessageParser
 
     private function parse(): void
     {
+        // 메시지를 줄 단위로 나눈다
+        $this->splitMessageIntoLines();
 
         // TODO refactoring
-        // 메시지를 줄 단위로 나눈다
         // 시작줄을 검사한다
         //      시작줄을 공백으로 나눈다
         //      메소드를 확인한다
         //      URI를 확인한다
         //      버전을 확인한다
 
-        //메시지를 \r\n 혹은 \n으로 나누기
-        $messageSplit = preg_split('/(\r\n|\n)/', $this->message);
-        //각 줄의 양 끝 공백은 제거한다
-        array_walk($messageSplit, function(&$item){
-            $item = trim($item);
-        });
-
         //시작줄은 있어야 한다
-        if (empty($messageSplit) || empty($messageSplit[0])) {
+        if (empty($this->messageLines) || empty($this->messageLines[0])) {
             $this->throwInvalidMessageFormat();
         }
 
         //시작줄을 whitespace로 나누기
-        $startLine = $messageSplit[0];
+        $startLine = $this->messageLines[0];
         $startLineSplit = preg_split('/\s/', $startLine);
 
         if (empty($startLineSplit) || count($startLineSplit) !== 3) {
@@ -78,5 +73,17 @@ class HttpMessageParser
     public function getResult(): array
     {
         return $this->result;
+    }
+
+    /**
+     * 메시지를 \r\n 혹은 \n으로 나누기
+     */
+    private function splitMessageIntoLines()
+    {
+        $this->messageLines = preg_split('/(\r\n|\n)/', $this->message);
+        //각 줄의 양 끝 공백은 제거한다
+        array_walk($this->messageLines, function (&$item) {
+            $item = trim($item);
+        });
     }
 }
