@@ -32,11 +32,6 @@ class HttpMessageParser
         throw new Exception('Invalid message format.');
     }
 
-    public function getResult(): array
-    {
-        return $this->result;
-    }
-
     /**
      * 메시지를 \r\n 혹은 \n으로 나누기
      */
@@ -97,5 +92,10 @@ class HttpMessageParser
         if (empty($this->result['version']) || !preg_match('/HTTP\/\d+.\d+/', $this->result['version'])) {
             $this->throwInvalidMessageFormat();
         }
+    }
+
+    public function getResult(): array
+    {
+        return $this->result;
     }
 }
