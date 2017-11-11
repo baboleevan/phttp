@@ -22,11 +22,36 @@ class HttpMessageParser
 
     private function parse(): void
     {
-        // 메시지를 줄 단위로 나눈다
         $this->splitMessageIntoLines();
 
+        $this->verifyStartLine();
+    }
+
+    private function throwInvalidMessageFormat(): void
+    {
+        throw new Exception('Invalid message format.');
+    }
+
+    public function getResult(): array
+    {
+        return $this->result;
+    }
+
+    /**
+     * 메시지를 \r\n 혹은 \n으로 나누기
+     */
+    private function splitMessageIntoLines()
+    {
+        $this->messageLines = preg_split('/(\r\n|\n)/', $this->message);
+        //각 줄의 양 끝 공백은 제거한다
+        array_walk($this->messageLines, function (&$item) {
+            $item = trim($item);
+        });
+    }
+
+    private function verifyStartLine(): void
+    {
         // TODO refactoring
-        // 시작줄을 검사한다
         //      시작줄을 공백으로 나눈다
         //      메소드를 확인한다
         //      URI를 확인한다
@@ -63,27 +88,5 @@ class HttpMessageParser
         if (empty($version) || !preg_match('/HTTP\/\d+.\d+/', $version)) {
             $this->throwInvalidMessageFormat();
         }
-    }
-
-    private function throwInvalidMessageFormat(): void
-    {
-        throw new Exception('Invalid message format.');
-    }
-
-    public function getResult(): array
-    {
-        return $this->result;
-    }
-
-    /**
-     * 메시지를 \r\n 혹은 \n으로 나누기
-     */
-    private function splitMessageIntoLines()
-    {
-        $this->messageLines = preg_split('/(\r\n|\n)/', $this->message);
-        //각 줄의 양 끝 공백은 제거한다
-        array_walk($this->messageLines, function (&$item) {
-            $item = trim($item);
-        });
     }
 }
