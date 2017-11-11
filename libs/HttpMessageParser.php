@@ -21,6 +21,15 @@ class HttpMessageParser
 
     private function parse(): void
     {
+
+        // TODO refactoring
+        // 메시지를 줄 단위로 나눈다
+        // 시작줄을 검사한다
+        //      시작줄을 공백으로 나눈다
+        //      메소드를 확인한다
+        //      URI를 확인한다
+        //      버전을 확인한다
+
         //메시지를 \r\n 혹은 \n으로 나누기
         $messageSplit = preg_split('/(\r\n|\n)/', $this->message);
         //각 줄의 양 끝 공백은 제거한다
